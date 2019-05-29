@@ -1,0 +1,43 @@
+version: "2"
+services:
+    mha-node: 
+      image: ldrho/mha-node
+      read_only: true
+      build:
+        context: ./mha-node
+    master:
+      image: ldrho/mha-node
+      ports:
+        - "3322:22"
+        - "3306:3306"
+      env_file: 
+        - ./mha-node/account.env
+      volumes:
+        - "./volumes/mha-share/:/mha-share/"
+        - "./volumes/mha-bin/node/:/mha-bin/"
+        - "./mha-node/master/config/conf.d/:/etc/mysql/mysql.conf.d/"
+        - "./mha-node/master/volumes/lib/:/var/lib/mysql/"
+        - "./mha-node/master/volumes/log/:/var/log/mysql/"
+    slave_1:
+      image: ldrho/mha-node
+      ports:
+        - "3322:22"
+        - "3306:3306"
+      env_file:
+        - ./mha-node/account.env
+      volumes:
+        - "./volumes/mha-share/:/mha-share/"
+        - "./volumes/mha-bin/node/:/mha-bin/"
+        - "./mha-node/slave/config/conf.d/:/etc/mysql/mysql.conf.d/"
+        - "./mha-node/slave/volumes/lib/:/var/lib/mysql/"
+        - "./mha-node/slave/volumes/log/:/var/log/mysql/"
+    manager:
+      image: ldrho/mha-manager
+      build:
+        context: ./mha-manager
+      volumes:
+        - "./volumes/mha-share/:/mha-share/"
+        - "./volumes/mha-bin/manager/:/mha-bin/"
+      entrypoint: tailf /dev/null
+      env_file:
+        - ./mha-node/account.env

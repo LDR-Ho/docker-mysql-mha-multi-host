@@ -1,0 +1,10 @@
+.vscode/
+.DS_Store
+*/.DS_Store
+#volumes
+mha-node/master/volumes/log/*
+mha-node/master/volumes/lib/*
+mha-node/slave/volumes/log/*
+mha-node/slave/volumes/lib/*
+
+
