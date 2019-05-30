@@ -15,7 +15,6 @@ services:
       volumes:
         - "./volumes/mha-share/:/mha-share/"
         - "./volumes/mha-bin/node/:/mha-bin/"
-        - "./volumes/ssh/:/root/.ssh/"
         - "./mha-node/master/config/conf.d/:/etc/mysql/mysql.conf.d/"
         - "./mha-node/master/volumes/lib/:/var/lib/mysql/"
         - "./mha-node/master/volumes/log/:/var/log/mysql/"
@@ -29,7 +28,6 @@ services:
       volumes:
         - "./volumes/mha-share/:/mha-share/"
         - "./volumes/mha-bin/node/:/mha-bin/"
-        - "./volumes/ssh/:/root/.ssh/"
         - "./mha-node/slave/config/conf.d/:/etc/mysql/mysql.conf.d/"
         - "./mha-node/slave/volumes/lib/:/var/lib/mysql/"
         - "./mha-node/slave/volumes/log/:/var/log/mysql/"
